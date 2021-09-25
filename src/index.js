@@ -72,7 +72,7 @@ function _sendExistingMessages(chatId,socket){
             path: 'Messages',
             populate :{
                 path: 'user',
-                model: 'User'
+                model: 'users'
             }
         })
 
