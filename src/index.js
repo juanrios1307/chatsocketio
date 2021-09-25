@@ -16,7 +16,7 @@ server.listen(process.env.PORT || 5000,()=>{
     console.log('Listen in the port ',process.env.PORT)
 })
 
-const Chat=require('../models/Chat')
+const Chat=require('./models/Chat')
 
 var clients = {};
 var users = {};
