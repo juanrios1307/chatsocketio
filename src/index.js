@@ -67,7 +67,7 @@ function _sendExistingMessages(chatId,socket){
             socket.emit('message',messages.Messages)
         }
     })
-        .sort({createdAt : -1})
+        .sort({createdAt :1})
         .populate({
             path: 'Messages',
             populate :{
