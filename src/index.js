@@ -61,7 +61,6 @@ function _sendExistingMessages(chatId,socket){
         } else {
             // Devolvemos el código HTTP 200.
             console.log("Mensajes A Enviar: ",messages.Messages)
-            console.log("Mensajes A Enviar: ",messages)
             socket.emit('message',messages.Messages)
         }
     }).sort({createdAt : 1})
