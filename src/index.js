@@ -53,23 +53,20 @@ function  onMessageReceived(chatId,message, senderSocket){
 
 function _sendExistingMessages(chatId,socket){
 
-    console.log(chatId)
+    console.log("Chat ID send: ",chatId)
 
     Chat.find({_id:chatId},{Messages:1,_id:0},function(err,messages){
         if (err) {
             //res.send(err);
             // Devolvemos el código HTTP 404, de usuario no encontrado por su id.
-           // socket.emit('message',err)
+            socket.emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
-           /* console.log("Mensajes A Enviar: ",messages)
-            socket.emit('message',messages)*/
+           console.log("Mensajes A Enviar: ",messages.Messages)
+            socket.emit('message',messages.Messages)
         }
-    })
-        .sort({createdAt : 1})
-        .toArray((err,messages)=> {
-            socket.emit('message', messages.reverse());
-        });
+    }).sort({createdAt : 1})
+
 
    /* db.collection('messages')
         .find({_id:chatId})
