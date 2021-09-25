@@ -8,13 +8,11 @@ var ObjectID = mongojs.ObjectID
 //var db = mongojs('mongodb+srv://admin:MongoAtlasDB@cluster0.lhtsk.gcp.mongodb.net/tripmates?retryWrites=true&w=majority')
 
 const app=express()
-const server = http.Server()
+const server = http.Server(app)
 const websocket = socketio(server)
 
-app.set('Port',5000)
-
 //start server
-app.listen(process.env.PORT || 5000,()=>{
+server.listen(process.env.PORT || 5000,()=>{
     console.log('Listen in the port ',process.env.PORT)
 })
 
