@@ -22,8 +22,9 @@ var users = {};
 var chatId =1;
 
 websocket.on('connection',(socket)=>{
+    console.log('Websocket Conectado')
     clients[socket.id] = socket;
-    socket.on('userJoined',(user) => onUserJoined(userId,socket));
+    socket.on('userJoined',(user) => onUserJoined(user,socket));
     socket.on('message', (message) => onMessageReceived(message,socket));
 
 })
@@ -31,7 +32,9 @@ websocket.on('connection',(socket)=>{
 function onUserJoined(userId,socket){
     try{
         if(!userId){
-
+            console.log('No ID')
+            users[socket.id] = userId;
+            _sendExistingMessages(socket);
         }else{
             users[socket.id] = userId;
             _sendExistingMessages(socket);
@@ -43,7 +46,7 @@ function onUserJoined(userId,socket){
 
 function  onMessageReceived(message, senderSocket){
     var userId = users[senderSocket.id];
-
+    console.log('Mensaje recibido')
     _sendAndSaveMessage(message,senderSocket);
 }
 
@@ -65,7 +68,7 @@ function _sendExistingMessages(socket){
             text:'jaja'
         }
         ]
-
+    console.log(messages)
     socket.emit('message',messages)
 }
 
@@ -81,7 +84,7 @@ function _sendAndSaveMessage(message,socket, fromServer){
         var emitter = fromServer ? websocket : socket.broadcast;
         emitter.emit('message',[message])
     })*/
-
+    console.log(message)
     var emitter = fromServer ? websocket : socket.broadcast;
     emitter.emit('message',[messageData])
 
