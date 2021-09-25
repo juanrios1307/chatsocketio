@@ -61,11 +61,17 @@ function _sendExistingMessages(socket){
     messages=[
         {
             _id:1,
-            text:'hola'
+            text:'hola',
+            user :'pepe',
+            createdAt : new Date(),
+            chatId:1
         },
         {
             _id:2,
-            text:'jaja'
+            text:'Preuba Chat',
+            user :'pepe',
+            createdAt : new Date(),
+            chatId:1
         }
         ]
     console.log(messages)
