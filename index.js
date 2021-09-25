@@ -37,7 +37,7 @@ function onUserJoined(userId,socket){
             _sendExistingMessages(socket);
         }
     }catch (error){
-        console.err(err)
+        console.error(err)
     }
 }
 
