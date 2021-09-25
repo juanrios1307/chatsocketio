@@ -8,7 +8,7 @@ const User = mongoose.model('users',{
     name: {type:String, required:true},
     phone:  {type:String, required:true},
     city: {type:String, required:true},
-    image : {type:String, required:true},
+    avatar : {type:String, required:true},
     Rating : [{
         user: {type: Schema.Types.ObjectId, ref: 'users'},
         comment: {type: String, required: true},
