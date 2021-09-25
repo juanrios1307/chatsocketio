@@ -65,7 +65,7 @@ function _sendExistingMessages(chatId,socket){
             console.log("Mensajes A Enviar: ",messages.Messages)
             socket.emit('message',messages.Messages)
         }
-    }).sort({createdAt : -1}).populate('Messages.user')
+    }).populate('Messages.user').sort({createdAt : -1})
 
 
    /* db.collection('messages')
