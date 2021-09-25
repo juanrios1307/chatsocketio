@@ -1,8 +1,6 @@
 const express=require('express')
 const http = require('http')
 const socketio = require('socket.io')
-const mongojs = require('mongojs')
-const mongoose =  require('mongoose');
 
 require('./helpers/database')
 
@@ -32,7 +30,7 @@ websocket.on('connection',(socket)=>{
 function onUserJoined(chatId,userId,socket){
     try{
         if(!userId){
-            return
+
         }else{
             console.log('User ID :', userId)
             console.log('Chat ID :', chatId)
@@ -46,7 +44,7 @@ function onUserJoined(chatId,userId,socket){
 }
 
 function  onMessageReceived(chatId,message, senderSocket){
-    var userId = users[senderSocket.id];
+    //var userId = users[senderSocket.id];
     console.log('Mensaje recibido')
     _sendAndSaveMessage(chatId,message,senderSocket);
 }
@@ -55,14 +53,15 @@ function _sendExistingMessages(chatId,socket){
 
     console.log("Chat ID send: ",chatId)
 
-    Chat.find({_id:chatId},function(err,messages){
+    Chat.findById({chatId},function(err,messages){
         if (err) {
             //res.send(err);
             // Devolvemos el código HTTP 404, de usuario no encontrado por su id.
             socket.emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
-           console.log("Mensajes A Enviar: ",messages.Messages)
+            console.log("Mensajes A Enviar: ",messages.Messages)
+            console.log("Mensajes A Enviar: ",messages)
             socket.emit('message',messages.Messages)
         }
     }).sort({createdAt : 1})
@@ -89,13 +88,12 @@ function _sendAndSaveMessage(chatId,message,socket, fromServer){
     console.log("Mensaje Recibido y Guardado",message)
 
     Chat.update({_id:chatId},{$push:{ Messages }} , function (err) {
-        if (err) {
 
-            var emitter = fromServer ? websocket : socket.broadcast;
+        var emitter = fromServer ? websocket : socket.broadcast;
+
+        if (err) {
             emitter.emit('message',err)
         } else {
-
-            var emitter = fromServer ? websocket : socket.broadcast;
             emitter.emit('message',[Messages])
         }
     });
