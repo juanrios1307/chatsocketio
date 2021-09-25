@@ -34,12 +34,14 @@ function onUserJoined(chatId,userId,socket){
         if(!userId){
             return
         }else{
-            console.log('SI ID')
+            console.log('User ID :', userId)
+            console.log('Chat ID :', chatId)
+
             users[socket.id] = userId;
             _sendExistingMessages(chatId,socket);
         }
     }catch (error){
-        console.error(err)
+        console.error(error)
     }
 }
 
@@ -50,6 +52,8 @@ function  onMessageReceived(chatId,message, senderSocket){
 }
 
 function _sendExistingMessages(chatId,socket){
+
+    console.log(chatId)
 
     Chat.find({_id:chatId},{Messages:1,_id:0},function(err,messages){
         if (err) {
