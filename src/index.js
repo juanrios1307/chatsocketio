@@ -58,6 +58,7 @@ function _sendExistingMessages(chatId,socket){
         if (err) {
             //res.send(err);
             // Devolvemos el código HTTP 404, de usuario no encontrado por su id.
+            console.error(err)
             socket.emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
