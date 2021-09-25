@@ -63,14 +63,14 @@ function _sendExistingMessages(socket){
         {
             _id:1,
             text:'hola',
-            user :'pepe',
+            user :1,
             createdAt : new Date(),
             chatId:1
         },
         {
             _id:2,
             text:'Preuba Chat',
-            user :'pepe',
+            user :2,
             createdAt : new Date(),
             chatId:1
         }
