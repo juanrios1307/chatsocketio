@@ -53,7 +53,7 @@ function _sendExistingMessages(chatId,socket){
 
     console.log("Chat ID send: ",chatId)
 
-    Chat.findById({chatId},function(err,messages){
+    Chat.findById({chatId},{},function(err,messages){
         if (err) {
             //res.send(err);
             // Devolvemos el código HTTP 404, de usuario no encontrado por su id.
