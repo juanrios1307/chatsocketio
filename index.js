@@ -36,6 +36,7 @@ function onUserJoined(userId,socket){
             users[socket.id] = userId;
             _sendExistingMessages(socket);
         }else{
+            console.log('SI ID')
             users[socket.id] = userId;
             _sendExistingMessages(socket);
         }
@@ -74,7 +75,7 @@ function _sendExistingMessages(socket){
             chatId:1
         }
         ]
-    console.log(messages)
+    console.log("Mensajes A Enviar: ",messages)
     socket.emit('message',messages)
 }
 
@@ -82,7 +83,7 @@ function _sendAndSaveMessage(message,socket, fromServer){
     var messageData ={
         text:message.text,
         user : message.user,
-        createdAt : new Date(mesage.createdAt),
+        createdAt : new Date(message.createdAt),
         chatId:chatId
     }
 
@@ -90,7 +91,7 @@ function _sendAndSaveMessage(message,socket, fromServer){
         var emitter = fromServer ? websocket : socket.broadcast;
         emitter.emit('message',[message])
     })*/
-    console.log(message)
+    console.log("Mensaje Recibido y Guardado",message)
     var emitter = fromServer ? websocket : socket.broadcast;
     emitter.emit('message',[messageData])
 
