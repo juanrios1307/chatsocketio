@@ -45,7 +45,8 @@ function onUserJoined(chatId,userId,socket){
 
 function  onMessageReceived(chatId,message, senderSocket){
     //var userId = users[senderSocket.id];
-    console.log('Mensaje recibido')
+    console.log('Mensaje recibido',message)
+
     _sendAndSaveMessage(chatId,message,senderSocket);
 }
 
@@ -63,7 +64,7 @@ function _sendExistingMessages(chatId,socket){
             console.log("Mensajes A Enviar: ",messages.Messages)
             socket.emit('message',messages.Messages)
         }
-    }).sort({createdAt : 1})
+    }).sort({createdAt : -1})
 
 
    /* db.collection('messages')
