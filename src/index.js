@@ -86,7 +86,7 @@ function _sendAndSaveMessage(chatId,message,socket, fromServer){
     }
     console.log("Mensaje Recibido y Guardado",message)
 
-    Chat.update({_id:chatId},{$push:{ Messages }} , function (err) {
+    Chat.findByIdAndUpdate(chatId,{$push:{ Messages }} , function (err) {
 
         var emitter = fromServer ? websocket : socket.broadcast;
 
