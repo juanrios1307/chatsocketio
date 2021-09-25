@@ -15,6 +15,7 @@ server.listen(process.env.PORT || 5000,()=>{
 })
 
 const Chat=require('./models/Chat')
+const User = require('./models/User')
 
 var clients = {};
 var users = {};
@@ -65,7 +66,7 @@ function _sendExistingMessages(chatId,socket){
             console.log("Mensajes A Enviar: ",messages.Messages)
             socket.emit('message',messages.Messages)
         }
-    }).populate('Messages.user').sort({createdAt : -1})
+    }).populate('Messages.$.users').sort({createdAt : -1})
 
 
    /* db.collection('messages')
