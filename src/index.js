@@ -70,10 +70,10 @@ function _sendExistingMessages(chatId,socket){
             //res.send(err);
             // Devolvemos el código HTTP 404, de usuario no encontrado por su id.
             console.error(err)
-            socket.to(chatId).emit('message',err)
+            socket.in(chatId).emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
-            socket.to(chatId).emit('message',messages.Messages)
+            socket.in(chatId).emit('message',messages.Messages)
         }
     })
         .sort({createdAt :1})
@@ -111,9 +111,9 @@ function _sendAndSaveMessage(chatId,message,socket, fromServer){
         var emitter = fromServer ? websocket : socket.broadcast;
 
         if (err) {
-            emitter.to(chatId).emit('message',err)
+            emitter.in(chatId).emit('message',err)
         } else {
-            emitter.to(chatId).emit('message',[Messages])
+            emitter.in(chatId).emit('message',[Messages])
         }
     });
 
