@@ -31,7 +31,7 @@ websocket.on('connection',(socket)=>{
 
 })
 
-function onUserJoined(chatId,userId,socket){
+async function onUserJoined(chatId,userId,socket){
     try{
         if(!userId){
 
@@ -45,7 +45,7 @@ function onUserJoined(chatId,userId,socket){
             console.log("Socket ID: ",socket.id)
             console.log("User ID: ",users[socket.id])
 
-            socket.join(chatId)
+            await socket.join(chatId)
 
             _sendExistingMessages(chatId,socket);
         }
