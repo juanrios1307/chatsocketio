@@ -26,10 +26,19 @@ websocket.on('connection',(socket)=>{
 
     console.log(socket.rooms);
 
+    socket.on('userJoinedRoom' , (chatId, user) => onUserJoinedRoom(chatId,user,socket))
     socket.on('userJoined',(chatId,user) => onUserJoined(chatId,user,socket));
     socket.on('message', (chatId,message) => onMessageReceived(chatId,message,socket));
 
 })
+
+function onUserJoinedRoom(chatId,user,socket){
+    socket.join(chatId)
+
+    console.log("User Joined To Room ",chatId)
+    socket.emit("User Joined To Room ",chatId)
+
+}
 
 async function onUserJoined(chatId,userId,socket){
     try{
@@ -44,8 +53,6 @@ async function onUserJoined(chatId,userId,socket){
 
             console.log("Socket ID: ",socket.id)
             console.log("User ID: ",users[socket.id])
-
-            await socket.join(chatId)
 
             _sendExistingMessages(chatId,socket);
         }
