@@ -38,10 +38,10 @@ function onUserJoined(chatId,userId,socket){
 
             users[socket.id] = userId;
 
-            for(var i=0; i<users.length ; i++){
-                console.log("Socket ID: ",socket.id)
-                console.log("User ID: ",users[socket.id])
-            }
+
+            console.log("Socket ID: ",socket.id)
+            console.log("User ID: ",users[socket.id])
+
 
             _sendExistingMessages(chatId,socket);
         }
@@ -52,7 +52,7 @@ function onUserJoined(chatId,userId,socket){
 
 function  onMessageReceived(chatId,message, senderSocket){
     //var userId = users[senderSocket.id];
-    console.log('Mensaje recibido',message)
+    console.log('Mensaje recibido')
 
     _sendAndSaveMessage(chatId,message,senderSocket);
 }
@@ -69,7 +69,6 @@ function _sendExistingMessages(chatId,socket){
             socket.emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
-            console.log("Mensajes A Enviar: ",messages.Messages)
             socket.emit('message',messages.Messages)
         }
     })
@@ -101,7 +100,7 @@ function _sendAndSaveMessage(chatId,message,socket, fromServer){
         createdAt : new Date(message.createdAt),
         chatId:chatId
     }
-    console.log("Mensaje Recibido y Guardado",message)
+    console.log("Mensaje Recibido y Guardado")
 
     Chat.findByIdAndUpdate(chatId,{$push:{ Messages }} , function (err) {
 
