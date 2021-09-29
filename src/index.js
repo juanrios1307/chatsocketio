@@ -81,10 +81,11 @@ function _sendExistingMessages(chatId,socket){
         } else {
             // Devolvemos el código HTTP 200.
             //socket.in(chatId).emit('message',messages.Messages)
+            console.log("Chat Enviado: ",messages._id)
             socket.emit('message',messages.Messages)
         }
     })
-        .sort({createdAt :1})
+        .sort({createdAt :-1})
         .populate({
             path: 'Messages',
             populate :{
