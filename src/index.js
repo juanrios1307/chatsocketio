@@ -24,7 +24,7 @@ websocket.on('connection',(socket)=>{
     console.log('Websocket Conectado')
     clients[socket.id] = socket;
 
-
+    console.log(socket.rooms);
 
     socket.on('userJoined',(chatId,user) => onUserJoined(chatId,user,socket));
     socket.on('message', (chatId,message) => onMessageReceived(chatId,message,socket));
