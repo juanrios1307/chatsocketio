@@ -23,6 +23,9 @@ var users = {};
 websocket.on('connection',(socket)=>{
     console.log('Websocket Conectado')
     clients[socket.id] = socket;
+
+
+
     socket.on('userJoined',(chatId,user) => onUserJoined(chatId,user,socket));
     socket.on('message', (chatId,message) => onMessageReceived(chatId,message,socket));
 
@@ -42,6 +45,7 @@ function onUserJoined(chatId,userId,socket){
             console.log("Socket ID: ",socket.id)
             console.log("User ID: ",users[socket.id])
 
+            socket.join(chatId)
 
             _sendExistingMessages(chatId,socket);
         }
@@ -66,10 +70,10 @@ function _sendExistingMessages(chatId,socket){
             //res.send(err);
             // Devolvemos el código HTTP 404, de usuario no encontrado por su id.
             console.error(err)
-            socket.emit('message',err)
+            socket.to(chatId).emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
-            socket.emit('message',messages.Messages)
+            socket.to(chatId).emit('message',messages.Messages)
         }
     })
         .sort({createdAt :1})
@@ -107,9 +111,9 @@ function _sendAndSaveMessage(chatId,message,socket, fromServer){
         var emitter = fromServer ? websocket : socket.broadcast;
 
         if (err) {
-            emitter.emit('message',err)
+            emitter.to(chatId).emit('message',err)
         } else {
-            emitter.emit('message',[Messages])
+            emitter.to(chatId).emit('message',[Messages])
         }
     });
 
