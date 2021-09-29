@@ -80,7 +80,8 @@ function _sendExistingMessages(chatId,socket){
             socket.in(chatId).emit('message',err)
         } else {
             // Devolvemos el código HTTP 200.
-            socket.in(chatId).emit('message',messages.Messages)
+            //socket.in(chatId).emit('message',messages.Messages)
+            socket.emit('message',messages.Messages)
         }
     })
         .sort({createdAt :1})
