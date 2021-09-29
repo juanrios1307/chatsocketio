@@ -37,6 +37,12 @@ function onUserJoined(chatId,userId,socket){
             console.log('Chat ID :', chatId)
 
             users[socket.id] = userId;
+
+            for(var i=0; i<users.length ; i++){
+                console.log("Socket ID: ",socket.id)
+                console.log("User ID: ",users[socket.id])
+            }
+
             _sendExistingMessages(chatId,socket);
         }
     }catch (error){
